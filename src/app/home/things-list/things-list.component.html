@@ -1,41 +1,42 @@
-<!--http://lekkerlogic.com/2015/05/angularjs-and-bootstrap-mysql-shopping-list-tutorial/-->
-<section class="items">
-	
-	<header class="items-header">
-		<div class="row">
-			<h2>Regalos</h2>
-			<!--<div class="col-sm-9 col-xs-12">
+<div class="table-responsive">
+  <table class="table">
+    <tr>
+      <th>Regalo</th>
+      <th>Desripción</th>
+      <th>Link</th>
+      <th>Reservado</th>
+      <th></th>
+    </tr>
+    <tr *ngFor="let item of list" [ngClass]=" { 'reserved': item.reserver }">
+      <td>{{item.title}}</td>
+      <td>{{item.description}}</td>
+      <td><a class="email-link" [href]="item.link">{{item.url}}</a></td>
+      <td>{{item.reserved ? 'Si' : 'No'}}</td>
+	  <td>
+		  <button class="status-button btn btn-xs btn-primary" (click)="open(content,item)">Ver</button>
+		  <button class="status-button btn btn-xs btn-primary" *ngIf="!item.reserver">Reservar</button>
+		  <button class="status-button btn btn-xs btn-danger" *ngIf="item.reserver">Cancelar</button>
+	  </td>
+    </tr>    
+  </table>
+</div>
 
-				<form class="form-inline" name="shopList">
-					<div class="form-actions">
-						<div class="input-group">
-							<input type="text" class="form-control" placeholder="Add New Item" autofocus required />
-							<div class="input-group-btn">
-								<button class="btn btn-info" type="submit" ng-click="addItem(itemInput); itemInput = null" ng-disabled="shopList.$invalid">
-									<i class="fa fa-plus"></i>&nbsp;Add Item
-								</button>
-							</div>
-						</div>
-					</div>
-				</form>
+<template ngbModalContainer></template>
 
-			</div>
+<template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">{{selectedItem.title}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>{{selectedItem.description}}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cerrar</button>
+  </div>
+</template>
 
-			<div class="col-sm-3 hidden-xs">
-				<input type="text" ng-model="filterItem" class="form-control" placeholder="Filter Items" />
-			</div>-->
-		</div>
-	</header>
 
-	<fieldset class="items-list">
-		<label class="items-list-item" *ngFor="let item of list">
-			<input
-			type="checkbox"
-			class="items-list-cb"/>
-			<span class="items-list-mark"></span>
-			<span class="items-list-desc" ngClass="{strike:false}">{{item.title}} </span> 
-			<a ng-click="deleteItem(item.id)" class="pull-right red"><i class="fa fa-minus-circle"></i></a> 
-		</label>
-	</fieldset>	
 
-</section>
