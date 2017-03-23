@@ -47,4 +47,13 @@ export class ThingsListComponent implements OnInit {
     }
   }
 
+  reserve(item : any) {
+    if(confirm("¿Desea reservar?")) {
+      this.gifts.reserve(item.id).subscribe(result => {
+        alert("Reservado");
+      });
+    }
+  }
+
+
 }

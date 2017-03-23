@@ -38,7 +38,7 @@ export class GiftsService {
     return this.http.post('/backend/api.php/reserve-thing', { data: JSON.stringify(data) })
       .map((res : Response) => {
         let body = res.json();
-        return body || {}
+        return <State>(body || {});
       });
   }
 

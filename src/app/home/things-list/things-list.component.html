@@ -1,3 +1,4 @@
+<button class="status-button btn btn-xs btn-success" (click)="open(crudContent,{})"><i class="fa fa-plus-square" aria-hidden="true"></i> Agregar</button>
 <div class="table-responsive">
   <table class="table">
     <tr>
@@ -14,8 +15,10 @@
       <td>{{item.reserved ? 'Si' : 'No'}}</td>
 	  <td>
 		  <button class="status-button btn btn-xs btn-primary" (click)="open(content,item)">Ver</button>
-		  <button class="status-button btn btn-xs btn-primary" *ngIf="!item.reserver">Reservar</button>
+		  <button class="status-button btn btn-xs btn-primary" *ngIf="!item.reserver" (click)="reserve(item)">Reservar</button>
 		  <button class="status-button btn btn-xs btn-danger" *ngIf="item.reserver">Cancelar</button>
+      <button class="status-button btn btn-xs btn-success" (click)="open(crudContent,item)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+      <button class="status-button btn btn-xs btn-danger" (click)="open(crudContent,item)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
 	  </td>
     </tr>    
   </table>
@@ -34,6 +37,37 @@
     <p>{{selectedItem.description}}</p>
   </div>
   <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cerrar</button>
+  </div>
+</template>
+
+<template #crudContent let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">{{selectedItem.title}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="inputTitle">Título</label>
+        <input type="text" class="form-control" id="inputTitle" placeholder="Ingrese título">        
+      </div>
+      <div class="form-group">
+        <label for="textareaDesc">Descripción</label>        
+        <textarea class="form-control" id="textareaDesc" rows="3"></textarea>     
+      </div>
+      <div class="form-group">
+        <label for="inputLink">Link</label>
+        <input type="url" class="form-control" id="inputLink" placeholder="Ingrese url">        
+      </div>
+    </form>
+    
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="c('Close click')">Guardar</button>    
     <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cerrar</button>
   </div>
 </template>
