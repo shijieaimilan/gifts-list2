@@ -20,7 +20,7 @@ export class ThingsListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.gifts.getAvailableGifts().subscribe(
+    this.gifts.getAllGifts().subscribe(
       (result : any[]) => {
         this.list = result;
       },
