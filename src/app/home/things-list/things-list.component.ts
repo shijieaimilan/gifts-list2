@@ -32,6 +32,7 @@ export class ThingsListComponent implements OnInit {
     this.selectedItem = item;
     this.modalService.open(content).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
+      this.add(this.selectedItem);
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
@@ -49,11 +50,74 @@ export class ThingsListComponent implements OnInit {
 
   reserve(item : any) {
     if(confirm("¿Desea reservar?")) {
-      this.gifts.reserve(item.id).subscribe(result => {
-        alert("Reservado");
+
+
+      this.gifts.reserve(item.id,'yo').subscribe(result => {
+        this.gifts.getAllGifts().subscribe(data => {          
+          this.list = data;
+          alert('Reservado');
+        });
+
       });
     }
   }
+
+  removeReserved(item : any) {
+    if(confirm("¿Desea cancelar la reserva?")) {
+
+
+      this.gifts.removeReserved(item.id).subscribe(result => {
+        this.gifts.getAllGifts().subscribe(data => {          
+          this.list = data;
+          alert('Cancelado');
+        });
+
+      });
+    }
+  }
+
+  add(item : any) {
+    if(confirm("¿Desea reservar?")) {
+
+
+      this.gifts.add(item).subscribe(result => {
+        this.gifts.getAllGifts().subscribe(data => {          
+          this.list = data;
+          alert('Agregado');
+        });
+
+      });
+    }
+  }
+
+  delete(item : any) {
+    if(confirm("¿Desea reservar?")) {
+
+
+      this.gifts.delete(item.id).subscribe(result => {
+        this.gifts.getAllGifts().subscribe(data => {          
+          this.list = data;
+          alert('Eliminado');
+        });
+
+      });
+    }
+  }
+
+  update(item : any) {
+    if(confirm("¿Desea reservar?")) {
+
+
+      this.gifts.update(item).subscribe(result => {
+        this.gifts.getAllGifts().subscribe(data => {          
+          this.list = data;
+          alert('Actualizado');
+        });
+
+      });
+    }
+  }
+
 
 
 }

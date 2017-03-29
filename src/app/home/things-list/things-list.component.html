@@ -16,9 +16,9 @@
 	  <td>
 		  <button class="status-button btn btn-xs btn-primary" (click)="open(content,item)">Ver</button>
 		  <button class="status-button btn btn-xs btn-primary" *ngIf="!item.reserver" (click)="reserve(item)">Reservar</button>
-		  <button class="status-button btn btn-xs btn-danger" *ngIf="item.reserver">Cancelar</button>
+		  <button class="status-button btn btn-xs btn-danger" *ngIf="item.reserver" (click)="removeReserved(item)">Cancelar</button>
       <button class="status-button btn btn-xs btn-success" (click)="open(crudContent,item)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-      <button class="status-button btn btn-xs btn-danger" (click)="open(crudContent,item)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+      <button class="status-button btn btn-xs btn-danger" (click)="delete(item)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
 	  </td>
     </tr>    
   </table>
@@ -68,7 +68,7 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-primary" (click)="c('Close click')">Guardar</button>    
-    <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cerrar</button>
+    <button type="button" class="btn btn-secondary" (click)="d('Close click')">Cerrar</button>
   </div>
 </template>
 

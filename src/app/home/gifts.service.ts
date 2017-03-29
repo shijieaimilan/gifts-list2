@@ -1,12 +1,13 @@
 import { Observable, Observer } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers } from '@angular/http';
 
 import  { Thing } from './thing.model';
 import  { State } from './state.model';
 
 @Injectable()
 export class GiftsService {
+
 
   constructor(private http : Http) { }
 
@@ -31,11 +32,72 @@ export class GiftsService {
     return body || { };
   }
 
-  public reserve(id : number) : Observable<State> {
+  public reserve(id : number, reserver : string) : Observable<State> {
     let data = {
+      id : id,
+      reserver: reserver
+    };
+
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+
+    return this.http.post('/backend/api.php/reserve-thing', ('data=' + JSON.stringify(data)), { headers })
+      .map((res : Response) => {
+        let body = res.json();
+        return <State>(body || {});
+      });
+  }
+
+  public add(obj : Thing) : Observable<State> {
+    
+
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+
+    return this.http.post('/backend/api.php/add-thing', ('data=' + JSON.stringify(obj)), { headers })
+      .map((res : Response) => {
+        let body = res.json();
+        return <State>(body || {});
+      });
+  }
+
+  public update(obj : Thing) : Observable<State> {
+    
+
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+
+    return this.http.post('/backend/api.php/update-thing', ('data=' + JSON.stringify(obj)), { headers })
+      .map((res : Response) => {
+        let body = res.json();
+        return <State>(body || {});
+      });
+  }
+
+  public delete(id : number) : Observable<State> {
+    let obj = {
       id : id
     };
-    return this.http.post('/backend/api.php/reserve-thing', { data: JSON.stringify(data) })
+
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+
+    return this.http.post('/backend/api.php/delete-thing', ('data=' + JSON.stringify(obj)), { headers })
+      .map((res : Response) => {
+        let body = res.json();
+        return <State>(body || {});
+      });
+  }
+
+  public removeReserved(id : number) : Observable<State> {
+    let obj = {
+      id : id
+    };
+
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+
+    return this.http.post('/backend/api.php/remove-reserved-thing', ('data=' + JSON.stringify(obj)), { headers })
       .map((res : Response) => {
         let body = res.json();
         return <State>(body || {});
