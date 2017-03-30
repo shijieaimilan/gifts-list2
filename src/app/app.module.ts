@@ -12,6 +12,7 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { HomeModule } from './home/home.module';
 import { AboutModule } from './about/about.module';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -27,7 +28,7 @@ import { AboutModule } from './about/about.module';
     AboutModule,
     AppRoutingModule
   ],
-  declarations: [AppComponent],
+  declarations: [AppComponent, LoginComponent],
   providers: [],
   bootstrap: [AppComponent]
 })
