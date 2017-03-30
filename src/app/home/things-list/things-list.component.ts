@@ -2,6 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { GiftsService } from '../gifts.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
+import { Thing } from '../thing.model';
+import {ThingCrudContentComponent, ReserveContentComponent } from './';
+
 @Component({
   selector: 'things-list',
   templateUrl: './things-list.component.html',
@@ -11,9 +14,9 @@ export class ThingsListComponent implements OnInit {
  
   closeResult: string;
 
-  selectedItem : any = null;
+  selectedItem : Thing = null;
 
-  list : any[] = [];
+  list : Thing[] = [];
 
   constructor(private modalService: NgbModal, private gifts : GiftsService) { 
     
@@ -28,38 +31,48 @@ export class ThingsListComponent implements OnInit {
     )
   }
 
-  open(content : any, item: any) {
-    this.selectedItem = item;
-    this.modalService.open(content).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-      this.add(this.selectedItem);
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+  openCrud(item: any) {
+    const modalRef = this.modalService.open(ThingCrudContentComponent);
+    modalRef.result.then(
+      (result) => {
+        result.reserver = null;
+        if(result.id == 0)
+          this.add(result)
+        else
+          this.update(result);
+      }
+    );
+
+    if(item)
+      modalRef.componentInstance.data = JSON.parse(JSON.stringify(item)); //clonar
+    else  
+      modalRef.componentInstance.data = { id: 0 };
   }
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return  `with: ${reason}`;
-    }
+
+  openReserveModal(item: any) {
+    const modalRef = this.modalService.open(ReserveContentComponent);
+    modalRef.result.then(
+      (result) => {
+        this.reserve(result);
+      }
+    );
+
+    if(item)
+      modalRef.componentInstance.data = JSON.parse(JSON.stringify(item)); //clonar
+    else  
+      modalRef.componentInstance.data = { id: 0 };
   }
+
 
   reserve(item : any) {
-    if(confirm("¿Desea reservar?")) {
-
-
-      this.gifts.reserve(item.id,'yo').subscribe(result => {
-        this.gifts.getAllGifts().subscribe(data => {          
-          this.list = data;
-          alert('Reservado');
-        });
-
+    this.gifts.reserve(item).subscribe(result => {
+      this.gifts.getAllGifts().subscribe(data => {          
+        this.list = data;
+        alert(result.message);
       });
-    }
+
+    });
   }
 
   removeReserved(item : any) {
@@ -69,7 +82,6 @@ export class ThingsListComponent implements OnInit {
       this.gifts.removeReserved(item.id).subscribe(result => {
         this.gifts.getAllGifts().subscribe(data => {          
           this.list = data;
-          alert('Cancelado');
         });
 
       });
@@ -77,27 +89,20 @@ export class ThingsListComponent implements OnInit {
   }
 
   add(item : any) {
-    if(confirm("¿Desea reservar?")) {
-
-
-      this.gifts.add(item).subscribe(result => {
-        this.gifts.getAllGifts().subscribe(data => {          
-          this.list = data;
-          alert('Agregado');
-        });
-
+    this.gifts.add(item).subscribe(result => {
+      this.gifts.getAllGifts().subscribe(data => {          
+        this.list = data;
       });
-    }
+    });
   }
 
   delete(item : any) {
-    if(confirm("¿Desea reservar?")) {
+    if(confirm("¿Desea eliminar el objeto?")) {
 
 
       this.gifts.delete(item.id).subscribe(result => {
         this.gifts.getAllGifts().subscribe(data => {          
           this.list = data;
-          alert('Eliminado');
         });
 
       });
@@ -105,17 +110,12 @@ export class ThingsListComponent implements OnInit {
   }
 
   update(item : any) {
-    if(confirm("¿Desea reservar?")) {
-
-
-      this.gifts.update(item).subscribe(result => {
-        this.gifts.getAllGifts().subscribe(data => {          
-          this.list = data;
-          alert('Actualizado');
-        });
-
+    this.gifts.update(item).subscribe(result => {
+      this.gifts.getAllGifts().subscribe(data => {          
+        this.list = data;
       });
-    }
+
+    });
   }
 
 

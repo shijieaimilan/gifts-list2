@@ -1,0 +1,29 @@
+<div class="modal-header">
+  <h4 class="modal-title">Reservar</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+
+  <div class="modal-body">
+    <h4>{{data.title}}</h4>
+    <a [href]="data.url" *ngIf="data.url">Link</a>
+    <p>{{data.description}}</p>
+  </div>
+
+  <form>
+    <div class="form-group">
+      <label for="inputReserver">Nombre</label>
+      <input type="text" class="form-control" id="inputReserver" [(ngModel)]="data.reserver" name="reserver" placeholder="Ingrese su nombre (No será publicado)">
+    </div>
+    <div class="form-group">
+      <label for="inputEmail">Email</label>
+      <input type="email" class="form-control" id="inputEmail" [(ngModel)]="data.reserverEmail" name="email" placeholder="Ingrese email (No será publicado)">
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" (click)="activeModal.close(data)">Reservar</button>
+  <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('Close click')">Cerrar</button>
+</div>

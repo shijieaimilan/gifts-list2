@@ -32,16 +32,16 @@ export class GiftsService {
     return body || { };
   }
 
-  public reserve(id : number, reserver : string) : Observable<State> {
-    let data = {
-      id : id,
-      reserver: reserver
-    };
+  public reserve(obj : Thing) : Observable<State> {
+    // let data = {
+    //   id : id,
+    //   reserver: reserver
+    // };
 
     const headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
-    return this.http.post('/backend/api.php/reserve-thing', ('data=' + JSON.stringify(data)), { headers })
+    return this.http.post('/backend/api.php/reserve-thing', ('data=' + JSON.stringify(obj)), { headers })
       .map((res : Response) => {
         let body = res.json();
         return <State>(body || {});

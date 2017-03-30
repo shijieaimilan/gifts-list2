@@ -4,4 +4,6 @@ export class Thing {
     description: string;
     url: string;
     reserver: string;
+    reserverEmail: string;
+    cancelationCode: string;
 }

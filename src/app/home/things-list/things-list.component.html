@@ -1,76 +1,38 @@
-<button class="status-button btn btn-xs btn-success" (click)="open(crudContent,{})"><i class="fa fa-plus-square" aria-hidden="true"></i> Agregar</button>
+<button class="status-button btn btn-xs btn-success" (click)="openCrud(null)"><i class="fa fa-plus-square" aria-hidden="true"></i> Agregar</button>
 <div class="table-responsive">
   <table class="table">
     <tr>
       <th>Regalo</th>
-      <th>Desripción</th>
       <th>Link</th>
       <th>Reservado</th>
-      <th></th>
+      <th>Reservador</th>
+      <th>Email</th>
+      <th>Código cancelación</th>
+      <th>Reserva</th>
+      <th>Editar</th>
     </tr>
     <tr *ngFor="let item of list" [ngClass]=" { 'reserved': item.reserver }">
       <td>{{item.title}}</td>
-      <td>{{item.description}}</td>
       <td><a class="email-link" [href]="item.link">{{item.url}}</a></td>
-      <td>{{item.reserved ? 'Si' : 'No'}}</td>
-	  <td>
-		  <button class="status-button btn btn-xs btn-primary" (click)="open(content,item)">Ver</button>
-		  <button class="status-button btn btn-xs btn-primary" *ngIf="!item.reserver" (click)="reserve(item)">Reservar</button>
-		  <button class="status-button btn btn-xs btn-danger" *ngIf="item.reserver" (click)="removeReserved(item)">Cancelar</button>
-      <button class="status-button btn btn-xs btn-success" (click)="open(crudContent,item)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-      <button class="status-button btn btn-xs btn-danger" (click)="delete(item)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-	  </td>
+      <td>{{item.reserver ? 'Si' : 'No'}}</td>
+      <td>{{item.reserver}}</td>
+      <td>{{item.reserverEmail}}</td>
+      <td>{{item.cancelationCode}}</td>
+      <td>
+        <button class="status-button btn btn-xs btn-primary" (click)="open(content,item)">Ver</button>
+        <button class="status-button btn btn-xs btn-primary" *ngIf="!item.reserver" (click)="openReserveModal(item)">Reservar</button>
+        <button class="status-button btn btn-xs btn-danger" *ngIf="item.reserver" (click)="removeReserved(item)">Cancelar</button>        
+      </td>
+      <td>
+        <button class="status-button btn btn-xs btn-success" (click)="openCrud(item)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+        <button class="status-button btn btn-xs btn-danger" (click)="delete(item)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+      </td>
     </tr>    
   </table>
 </div>
 
 <template ngbModalContainer></template>
 
-<template #content let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title">{{selectedItem.title}}</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <p>{{selectedItem.description}}</p>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cerrar</button>
-  </div>
-</template>
-
-<template #crudContent let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title">{{selectedItem.title}}</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form>
-      <div class="form-group">
-        <label for="inputTitle">Título</label>
-        <input type="text" class="form-control" id="inputTitle" placeholder="Ingrese título">        
-      </div>
-      <div class="form-group">
-        <label for="textareaDesc">Descripción</label>        
-        <textarea class="form-control" id="textareaDesc" rows="3"></textarea>     
-      </div>
-      <div class="form-group">
-        <label for="inputLink">Link</label>
-        <input type="url" class="form-control" id="inputLink" placeholder="Ingrese url">        
-      </div>
-    </form>
-    
-
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-primary" (click)="c('Close click')">Guardar</button>    
-    <button type="button" class="btn btn-secondary" (click)="d('Close click')">Cerrar</button>
-  </div>
-</template>
 
 
 
