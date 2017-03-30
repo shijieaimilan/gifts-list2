@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title">Reservar</h4>
+  <h4 class="modal-title">{{data.title}}</h4>
   <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -8,11 +8,11 @@
 
   <div class="modal-body">
     <h4>{{data.title}}</h4>
-    <a [href]="data.url" *ngIf="data.url">Link</a>
+    <a [href]="data.url" *ngIf="data.url">{{data.url}}</a>
     <p>{{data.description}}</p>
   </div>
 
-  <form>
+  <form *ngIf="!isViewing">
     <div class="form-group">
       <label for="inputReserver">Nombre</label>
       <input type="text" class="form-control" id="inputReserver" [(ngModel)]="data.reserver" name="reserver" placeholder="Ingrese su nombre (No será publicado)">
@@ -24,6 +24,6 @@
   </form>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-primary" (click)="activeModal.close(data)">Reservar</button>
+  <button type="button" class="btn btn-primary" (click)="activeModal.close(data)" *ngIf="!isViewing">Reservar</button>
   <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('Close click')">Cerrar</button>
 </div>

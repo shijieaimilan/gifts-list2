@@ -89,9 +89,10 @@ export class GiftsService {
       });
   }
 
-  public removeReserved(id : number) : Observable<State> {
+  public removeReserved(id : number, cancelationCode : string) : Observable<State> {
     let obj = {
-      id : id
+      id : id,
+      cancelationCode: cancelationCode
     };
 
     const headers = new Headers();

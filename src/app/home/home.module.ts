@@ -13,6 +13,7 @@ import { GiftsService } from './gifts.service';
 import { ThingsListComponent } from './things-list/things-list.component';
 import { ThingCrudContentComponent } from './things-list/thing-crud-content/thing-crud-content.component';
 import { ReserveContentComponent } from './things-list/reserve-content/reserve-content.component';
+import { CancelReserveContentComponent } from './things-list/cancel-reserve-content/cancel-reserve-content.component';
 
 @NgModule({
   imports: [
@@ -28,11 +29,13 @@ import { ReserveContentComponent } from './things-list/reserve-content/reserve-c
     HomeComponent,
     ThingsListComponent,
     ThingCrudContentComponent,
-    ReserveContentComponent
+    ReserveContentComponent,
+    CancelReserveContentComponent
   ],
   entryComponents: [
     ThingCrudContentComponent,
-    ReserveContentComponent
+    ReserveContentComponent,
+    CancelReserveContentComponent
   ],
   providers: [
     QuoteService,

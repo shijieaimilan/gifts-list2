@@ -3,7 +3,7 @@ import { GiftsService } from '../gifts.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 import { Thing } from '../thing.model';
-import {ThingCrudContentComponent, ReserveContentComponent } from './';
+import {ThingCrudContentComponent, ReserveContentComponent, CancelReserveContentComponent } from './';
 
 @Component({
   selector: 'things-list',
@@ -18,6 +18,8 @@ export class ThingsListComponent implements OnInit {
 
   list : Thing[] = [];
 
+  isLogedIn : boolean = false;
+
   constructor(private modalService: NgbModal, private gifts : GiftsService) { 
     
   }
@@ -25,10 +27,14 @@ export class ThingsListComponent implements OnInit {
   ngOnInit() {
     this.gifts.getAllGifts().subscribe(
       (result : any[]) => {
-        this.list = result;
+        this.list = result.sort(this.sort);;
       },
       error => console.log(error)
     )
+  }
+
+  login() {
+    this.isLogedIn = !this.isLogedIn;
   }
 
   openCrud(item: any) {
@@ -49,12 +55,46 @@ export class ThingsListComponent implements OnInit {
       modalRef.componentInstance.data = { id: 0 };
   }
 
+  sort(a : Thing, b : Thing) {
+    let a1 = !!a.reserver ? 1 : 0;
+    let b1 = !!b.reserver ? 1 : 0;
+    return a1-b1;
+  }
 
-  openReserveModal(item: any) {
+  openView(item: any, viewing : boolean) {
     const modalRef = this.modalService.open(ReserveContentComponent);
     modalRef.result.then(
       (result) => {
-        this.reserve(result);
+        this.gifts.reserve(result).subscribe(result => {
+          this.gifts.getAllGifts().subscribe(data => {          
+            this.list = data.sort(this.sort);
+            alert(result.message);
+          });
+        });
+      }
+    );
+    modalRef.componentInstance.isViewing = viewing;
+    if(item)
+      modalRef.componentInstance.data = JSON.parse(JSON.stringify(item)); //clonar
+    else  
+      modalRef.componentInstance.data = { id: 0 };
+  }
+
+
+  removeReserved(item : any) {
+    const modalRef = this.modalService.open(CancelReserveContentComponent);
+    modalRef.result.then(
+      (code) => {
+        this.gifts.removeReserved(item.id, code).subscribe(result => {
+          if(result.result) {
+            this.gifts.getAllGifts().subscribe(data => {          
+              this.list = data.sort(this.sort);;
+            });
+          }
+          else {
+            alert(result.message);
+          }
+        });
       }
     );
 
@@ -64,34 +104,14 @@ export class ThingsListComponent implements OnInit {
       modalRef.componentInstance.data = { id: 0 };
   }
 
-
-  reserve(item : any) {
-    this.gifts.reserve(item).subscribe(result => {
-      this.gifts.getAllGifts().subscribe(data => {          
-        this.list = data;
-        alert(result.message);
-      });
-
-    });
-  }
-
-  removeReserved(item : any) {
-    if(confirm("¿Desea cancelar la reserva?")) {
-
-
-      this.gifts.removeReserved(item.id).subscribe(result => {
-        this.gifts.getAllGifts().subscribe(data => {          
-          this.list = data;
-        });
-
-      });
-    }
-  }
-
   add(item : any) {
+    if(!item.url)
+      item.url = null;
+    if(!item.description)
+      item.description = null;
     this.gifts.add(item).subscribe(result => {
       this.gifts.getAllGifts().subscribe(data => {          
-        this.list = data;
+        this.list = data.sort(this.sort);;
       });
     });
   }
@@ -102,7 +122,7 @@ export class ThingsListComponent implements OnInit {
 
       this.gifts.delete(item.id).subscribe(result => {
         this.gifts.getAllGifts().subscribe(data => {          
-          this.list = data;
+          this.list = data.sort(this.sort);;
         });
 
       });
@@ -112,7 +132,7 @@ export class ThingsListComponent implements OnInit {
   update(item : any) {
     this.gifts.update(item).subscribe(result => {
       this.gifts.getAllGifts().subscribe(data => {          
-        this.list = data;
+        this.list = data.sort(this.sort);;
       });
 
     });

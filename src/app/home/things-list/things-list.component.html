@@ -1,31 +1,32 @@
 <button class="status-button btn btn-xs btn-success" (click)="openCrud(null)"><i class="fa fa-plus-square" aria-hidden="true"></i> Agregar</button>
+<button class="status-button btn btn-xs btn-danger" (click)="login()"><i class="fa fa-plus-square" aria-hidden="true"></i> Login</button>
 <div class="table-responsive">
   <table class="table">
     <tr>
       <th>Regalo</th>
       <th>Link</th>
       <th>Reservado</th>
-      <th>Reservador</th>
-      <th>Email</th>
-      <th>Código cancelación</th>
+      <th *ngIf="isLogedIn">Reservador</th>
+      <th *ngIf="isLogedIn">Email</th>
+      <th *ngIf="isLogedIn">Código cancelación</th>
       <th>Reserva</th>
-      <th>Editar</th>
+      <th *ngIf="isLogedIn">Editar</th>
     </tr>
     <tr *ngFor="let item of list" [ngClass]=" { 'reserved': item.reserver }">
       <td>{{item.title}}</td>
-      <td><a class="email-link" [href]="item.link">{{item.url}}</a></td>
+      <td><a class="email-link" [href]="item.url">{{item.url}}</a></td>
       <td>{{item.reserver ? 'Si' : 'No'}}</td>
-      <td>{{item.reserver}}</td>
-      <td>{{item.reserverEmail}}</td>
-      <td>{{item.cancelationCode}}</td>
+      <td *ngIf="isLogedIn">{{item.reserver}}</td>
+      <td *ngIf="isLogedIn">{{item.reserverEmail}}</td>
+      <td *ngIf="isLogedIn">{{item.cancelationCode}}</td>
       <td>
-        <button class="status-button btn btn-xs btn-primary" (click)="open(content,item)">Ver</button>
-        <button class="status-button btn btn-xs btn-primary" *ngIf="!item.reserver" (click)="openReserveModal(item)">Reservar</button>
-        <button class="status-button btn btn-xs btn-danger" *ngIf="item.reserver" (click)="removeReserved(item)">Cancelar</button>        
+        <button class="btn btn-sm btn-primary" (click)="openView(item, true)">Ver</button>
+        <button class="btn btn-sm btn-primary" *ngIf="!item.reserver" (click)="openView(item, false)">Reservar</button>
+        <button class="btn btn-sm btn-danger" *ngIf="item.reserver" (click)="removeReserved(item)">Cancelar</button>        
       </td>
-      <td>
-        <button class="status-button btn btn-xs btn-success" (click)="openCrud(item)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-        <button class="status-button btn btn-xs btn-danger" (click)="delete(item)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+      <td *ngIf="isLogedIn">
+        <button class="btn btn-sm btn-success" (click)="openCrud(item)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+        <button class="btn btn-sm btn-danger" (click)="delete(item)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
       </td>
     </tr>    
   </table>
