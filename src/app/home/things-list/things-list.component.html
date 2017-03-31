@@ -3,7 +3,7 @@
   <table class="table">
     <tr>
       <th>Regalo</th>
-      <th>Link</th>
+      <!--<th>Link</th>-->
       <th>Reservado</th>
       <th *ngIf="isLogedIn()">Reservador</th>
       <th *ngIf="isLogedIn()">Email</th>
@@ -11,9 +11,9 @@
       <th>Reserva</th>
       <th *ngIf="isLogedIn()">Editar</th>
     </tr>
-    <tr *ngFor="let item of list" [ngClass]=" { 'reserved': item.reserver }">
-      <td>{{item.title}}</td>
-      <td><a class="email-link" [href]="item.url">{{item.url}}</a></td>
+    <tr *ngFor="let item of list" [ngClass]=" { 'table-danger': item.reserver }">
+      <td class="title-field">{{item.title}}</td>
+      <!--<td><a class="email-link" [href]="item.url">{{item.url}}</a></td>-->
       <td>{{item.reserver ? 'Si' : 'No'}}</td>
       <td *ngIf="isLogedIn()">{{item.reserver}}</td>
       <td *ngIf="isLogedIn()">{{item.reserverEmail}}</td>

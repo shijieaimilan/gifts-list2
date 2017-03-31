@@ -1,4 +1,10 @@
 .reserved {
-    text-decoration:line-through;
-    background-color: #f2f2f2;
+    /*text-decoration:line-through;*/
+    background-color: red;
+}
+
+.table-danger {
+    .title-field {
+        text-decoration:line-through;
+    }
 }

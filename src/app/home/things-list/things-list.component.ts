@@ -51,6 +51,9 @@ export class ThingsListComponent implements OnInit {
           this.add(result)
         else
           this.update(result);
+      },
+      (reason) => {
+
       }
     );
 
@@ -76,6 +79,9 @@ export class ThingsListComponent implements OnInit {
             alert(result.message);
           });
         });
+      },
+      (reason) => {
+        
       }
     );
     modalRef.componentInstance.isViewing = viewing;
@@ -100,6 +106,9 @@ export class ThingsListComponent implements OnInit {
             alert(result.message);
           }
         });
+      },
+      (reason) => {
+        
       }
     );
 
