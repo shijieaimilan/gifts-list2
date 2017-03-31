@@ -2,6 +2,7 @@ import { Observable, Observer } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 
+import { environment } from '../../environments/environment';
 import  { Thing } from './thing.model';
 import  { State } from './state.model';
 
@@ -12,19 +13,9 @@ export class GiftsService {
   constructor(private http : Http) { }
 
   public getAllGifts() : Observable<Thing[]> {
-
-    return this.http.get('/backend/api.php/get-all-things')      
+    
+    return this.http.get(environment.apiUrl + 'api.php/get-all-things')      
       .map(this.extractData);
-
-    // return Observable.create((observer : Observer<Thing[]>) => {
-      
-    // }); 
-    // return Observable.of(
-    //   <Thing[]>[
-    //     { title: 'Dor', id: 1, description: 'para la pared', url: '', reserver: 'Eze'},
-    //     { title: 'Savanas', id: 2, description: 'para la pared', url: '', reserved: undefined}
-    //   ]
-    // );
   }
 
   private extractData(res: Response) : Thing[] {
@@ -41,7 +32,7 @@ export class GiftsService {
     const headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
-    return this.http.post('/backend/api.php/reserve-thing', ('data=' + JSON.stringify(obj)), { headers })
+    return this.http.post(environment.apiUrl + 'api.php/reserve-thing', ('data=' + JSON.stringify(obj)), { headers })
       .map((res : Response) => {
         let body = res.json();
         return <State>(body || {});
@@ -54,7 +45,7 @@ export class GiftsService {
     const headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
-    return this.http.post('/backend/api.php/add-thing', ('data=' + JSON.stringify(obj)), { headers })
+    return this.http.post(environment.apiUrl + 'api.php/add-thing', ('data=' + JSON.stringify(obj)), { headers })
       .map((res : Response) => {
         let body = res.json();
         return <State>(body || {});
@@ -67,7 +58,7 @@ export class GiftsService {
     const headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
-    return this.http.post('/backend/api.php/update-thing', ('data=' + JSON.stringify(obj)), { headers })
+    return this.http.post(environment.apiUrl + 'api.php/update-thing', ('data=' + JSON.stringify(obj)), { headers })
       .map((res : Response) => {
         let body = res.json();
         return <State>(body || {});
@@ -82,7 +73,7 @@ export class GiftsService {
     const headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
-    return this.http.post('/backend/api.php/delete-thing', ('data=' + JSON.stringify(obj)), { headers })
+    return this.http.post(environment.apiUrl + 'api.php/delete-thing', ('data=' + JSON.stringify(obj)), { headers })
       .map((res : Response) => {
         let body = res.json();
         return <State>(body || {});
@@ -98,7 +89,7 @@ export class GiftsService {
     const headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
-    return this.http.post('/backend/api.php/remove-reserved-thing', ('data=' + JSON.stringify(obj)), { headers })
+    return this.http.post(environment.apiUrl + 'api.php/remove-reserved-thing', ('data=' + JSON.stringify(obj)), { headers })
       .map((res : Response) => {
         let body = res.json();
         return <State>(body || {});
@@ -116,7 +107,7 @@ export class GiftsService {
     const headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
-    return this.http.post('/backend/api.php/request-mercapago', ('data=' + JSON.stringify(obj)), { headers })
+    return this.http.post(environment.apiUrl + 'api.php/request-mercapago', ('data=' + JSON.stringify(obj)), { headers })
       .map((res : Response) => {
         let body = res.json();
         return <State>(body || {});

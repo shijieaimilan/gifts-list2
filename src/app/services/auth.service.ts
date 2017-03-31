@@ -2,6 +2,8 @@ import { Observable, Observer } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 
+import { environment } from '../../environments/environment';
+
 @Injectable()
 export class AuthService {
 
@@ -9,7 +11,7 @@ export class AuthService {
 
   constructor(private http: Http) { }
 
-  isLoggedIn() {
+  isLoggedIn() {    
     return this._isLoggedIn;
   }
 
@@ -32,7 +34,7 @@ export class AuthService {
     headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
     return Observable.create((observer : Observer<Boolean>) => {
-      this.http.post('/backend/api.php/login', ('data=' + JSON.stringify(data)), { headers })
+      this.http.post(environment.apiUrl + 'api.php/login', ('data=' + JSON.stringify(data)), { headers })
       .map(response => {
         let rv = response.json();
         return <Boolean>rv;

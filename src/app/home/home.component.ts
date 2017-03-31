@@ -4,6 +4,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { QuoteService } from './quote.service';
 
+import { environment } from '../../environments/environment';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -18,9 +20,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.isLoading = true;
-    // this.quoteService.getRandomQuote({ category: 'dev' })
-    //   .finally(() => { this.isLoading = false; })
-    //   .subscribe((quote: string) => { this.quote = quote; });
+    
   }
 
 }

@@ -4,9 +4,9 @@ import env from './.env.json';
 export const environment = {
   production: true,
   version: env.npm_package_version,
-  defaultLanguage: 'en-US',
+  defaultLanguage: 'es-AR',
   supportedLanguages: [
-    'en-US',
-    'fr-FR'
-  ]
+    'es-AR'
+  ],
+  apiUrl: '../backend/'
 };

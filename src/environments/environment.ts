@@ -6,9 +6,9 @@
 export const environment = {
   production: false,
   version: 'dev',
-  defaultLanguage: 'en-US',
+  defaultLanguage: 'es-AR',
   supportedLanguages: [
-    'en-US',
-    'fr-FR'
-  ]
+    'es-AR'
+  ],
+  apiUrl: 'backend/'
 };
