@@ -105,4 +105,22 @@ export class GiftsService {
       });
   }
 
+
+   public requestMercapago(name : string, email: string, amount : Number) : Observable<State> {
+    let obj = {
+      name,
+      email,
+      amount
+    };
+
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+
+    return this.http.post('/backend/api.php/request-mercapago', ('data=' + JSON.stringify(obj)), { headers })
+      .map((res : Response) => {
+        let body = res.json();
+        return <State>(body || {});
+      });
+  }
+
 }

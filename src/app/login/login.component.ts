@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     this.auth.login(this.loginData.user, this.loginData.pass).subscribe(
       result => {
         if(result) {
-          this.router.navigate(['home']);
+          this.router.navigate(['home','things-list']);
         }
 
       },

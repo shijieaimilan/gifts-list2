@@ -5,11 +5,12 @@ import { LoginComponent } from '../';
 import { HomeComponent, BankTransferComponent, CreditCardComponent, ThingsListComponent } from './';
 
 const routes: Routes = [
+  
   {
     path: 'home',
     component: HomeComponent,
-    data: { title: 'Home' },
     children: [
+      { path: '', redirectTo: 'things-list', pathMatch: 'full' },
       {
         path: 'things-list',
         component: ThingsListComponent
@@ -21,13 +22,13 @@ const routes: Routes = [
       {
         path: 'credit-card',
         component: CreditCardComponent
-      }
+      },
+      { path: '**', redirectTo: 'things-list', pathMatch: 'full' }
     ]    
   },
   {
     path: 'login',
-    component: LoginComponent,
-    data: { title: 'Login' }
+    component: LoginComponent
   }
 ];
 

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { GiftsService } from '../gifts.service';
+
 @Component({
   selector: 'app-credit-card',
   templateUrl: './credit-card.component.html',
@@ -9,12 +11,23 @@ export class CreditCardComponent implements OnInit {
 
   data : any = {
     name: '',
-    email: ''
+    email: '',
+    amount: 0
   }
 
-  constructor() { }
+  response : any = null;
+
+  message : string = null;
+
+  constructor(private gifts : GiftsService) { }
 
   ngOnInit() {
+  }
+
+  request() {
+    this.gifts.requestMercapago(this.data.name, this.data.email, this.data.amount).subscribe(data => {
+      this.response = data;
+    });
   }
 
 }

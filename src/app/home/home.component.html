@@ -5,21 +5,18 @@
       <span translate>Regalos</span>
     </h1>
   </div>
-  <nav class="navbar navbar-toggleable-md navbar-light bg-faded my-nav">
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/home/things-list']" >Regalos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/home/bank-transfer']">Transferencia</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/home/credit-card']">Tarjeta de crédito</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+  
+  <ul class="nav nav-tabs my-nav">
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/home/things-list']" [routerLinkActive]="['active']">Regalos</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/home/bank-transfer']" [routerLinkActive]="['active']">Transferencia</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/home/credit-card']" [routerLinkActive]="['active']">Tarjeta</a>
+    </li>
+  </ul>
   <br>
   <router-outlet></router-outlet>
 </div>
