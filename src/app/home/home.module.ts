@@ -14,6 +14,8 @@ import { ThingsListComponent } from './things-list/things-list.component';
 import { ThingCrudContentComponent } from './things-list/thing-crud-content/thing-crud-content.component';
 import { ReserveContentComponent } from './things-list/reserve-content/reserve-content.component';
 import { CancelReserveContentComponent } from './things-list/cancel-reserve-content/cancel-reserve-content.component';
+import { BankTransferComponent } from './bank-transfer/bank-transfer.component';
+import { CreditCardComponent } from './credit-card/credit-card.component';
 
 @NgModule({
   imports: [
@@ -30,7 +32,9 @@ import { CancelReserveContentComponent } from './things-list/cancel-reserve-cont
     ThingsListComponent,
     ThingCrudContentComponent,
     ReserveContentComponent,
-    CancelReserveContentComponent
+    CancelReserveContentComponent,
+    BankTransferComponent,
+    CreditCardComponent
   ],
   entryComponents: [
     ThingCrudContentComponent,

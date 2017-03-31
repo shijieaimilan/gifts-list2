@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../services';
 
 @Component({
@@ -13,14 +14,21 @@ export class LoginComponent implements OnInit {
     pass: ''
   };
 
-  constructor(private auth : AuthService) { }
+  constructor(private router : Router, private auth : AuthService) { }
 
   ngOnInit() {
+  }
+
+  isLoggedIn() {
+    return this.auth.isLoggedIn();
   }
 
   login() {
     this.auth.login(this.loginData.user, this.loginData.pass).subscribe(
       result => {
+        if(result) {
+          this.router.navigate(['home']);
+        }
 
       },
       error => {

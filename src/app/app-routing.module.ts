@@ -5,11 +5,11 @@ import { LoginComponent } from './';
 const routes: Routes = [
   // Fallback when no prior route is matched
   { path: '**', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'login*', component:LoginComponent }
+  //{ path: 'login', component:LoginComponent }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule],
   providers: []
 })

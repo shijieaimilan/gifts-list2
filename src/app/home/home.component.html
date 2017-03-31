@@ -1,9 +1,25 @@
 <div class="container">
-  <!--<div class="jumbotron text-center">
+  <div class="jumbotron text-center">
     <h1>
-      <img class="logo" src="assets/envelop.svg" alt="angular logo"/>
+      <img class="logo" src="assets/envelop.svg" alt="angular logo" />
       <span translate>Regalos</span>
-    </h1>    
-  </div>-->
-  <things-list></things-list>
+    </h1>
+  </div>
+  <nav class="navbar navbar-toggleable-md navbar-light bg-faded my-nav">
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/home/things-list']" >Regalos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/home/bank-transfer']">Transferencia</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/home/credit-card']">Tarjeta de crédito</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <br>
+  <router-outlet></router-outlet>
 </div>

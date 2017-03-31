@@ -4,16 +4,24 @@
             aria-label="Toggle navigation" (click)="toggleMenu()" [attr.aria-expanded]="!menuHidden">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="http://github.com/angular-starter-kit" translate>Shijieaimilan</a>
+    <a class="navbar-brand" href="http://shijieaimilan.tk" translate>Shijieaimilan</a>
     <div id="navbar-menu" class="collapse navbar-collapse float-xs-none" [ngbCollapse]="menuHidden">
       <div class="navbar-nav">
-        <a class="nav-item nav-link text-uppercase" href="http://shijieaimilan.tk" routerLinkActive="active">
+        <!--<a class="nav-item nav-link text-uppercase" href="http://shijieaimilan.tk" routerLinkActive="active">
           <i class="fa fa-home"></i>
-          <span translate>Home</span>
+          <span translate>Inicio</span>
+        </a>-->
+        <a class="nav-item nav-link text-uppercase" routerLink="home" routerLinkActive="active">
+          <i class="fa fa-gift"></i>
+          <span translate>Regalos</span>
         </a>
-        <a class="nav-item nav-link text-uppercase" href="login" routerLinkActive="active">
-          <i class="fa fa-home"></i>
+        <a class="nav-item nav-link text-uppercase" routerLink="login" routerLinkActive="active" *ngIf="!isLoggedIn()">
+          <i class="fa fa-sign-in"></i>
           <span translate>Login</span>
+        </a>
+        <a class="nav-item nav-link text-uppercase" href="#" (click)="logout()" *ngIf="isLoggedIn()">
+          <i class="fa fa-sign-in"></i>
+          <span translate>Logout</span>
         </a>
       </div>
       <!--<div class="ml-auto" ngbDropdown>

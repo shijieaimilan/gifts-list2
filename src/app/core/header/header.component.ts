@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { I18nService } from '../i18n.service';
+import { AuthService } from '../../services';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +12,18 @@ export class HeaderComponent implements OnInit {
 
   menuHidden = true;
 
-  constructor(private i18nService: I18nService) { }
+  constructor(private i18nService: I18nService, private auth : AuthService) { }
+
+
+  isLoggedIn() {
+    return this.auth.isLoggedIn();
+  }
+
+  logout() {
+    this.auth.logout().subscribe(response => {
+      console.log("logout");
+    });
+  }
 
   toggleMenu() {
     this.menuHidden = !this.menuHidden;

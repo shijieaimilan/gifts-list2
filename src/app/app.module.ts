@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -14,11 +15,14 @@ import { HomeModule } from './home/home.module';
 import { AboutModule } from './about/about.module';
 import { LoginComponent } from './login/login.component';
 
+import { AuthService } from './services';
+
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
+    RouterModule,
     HttpModule,
     TranslateModule.forRoot(),
     NgbModule.forRoot(),
@@ -29,7 +33,7 @@ import { LoginComponent } from './login/login.component';
     AppRoutingModule
   ],
   declarations: [AppComponent, LoginComponent],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

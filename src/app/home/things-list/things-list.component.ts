@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { GiftsService } from '../gifts.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from '../../services';
 
 import { Thing } from '../thing.model';
 import {ThingCrudContentComponent, ReserveContentComponent, CancelReserveContentComponent } from './';
@@ -18,9 +19,9 @@ export class ThingsListComponent implements OnInit {
 
   list : Thing[] = [];
 
-  isLogedIn : boolean = false;
+  
 
-  constructor(private modalService: NgbModal, private gifts : GiftsService) { 
+  constructor(private modalService: NgbModal, private gifts : GiftsService, private auth : AuthService) { 
     
   }
 
@@ -33,9 +34,13 @@ export class ThingsListComponent implements OnInit {
     )
   }
 
-  login() {
-    this.isLogedIn = !this.isLogedIn;
+  isLogedIn() : Boolean {
+    return this.auth.isLoggedIn();
   }
+
+  // login() {
+  //   this.isLogedIn = !this.isLogedIn;
+  // }
 
   openCrud(item: any) {
     const modalRef = this.modalService.open(ThingCrudContentComponent);

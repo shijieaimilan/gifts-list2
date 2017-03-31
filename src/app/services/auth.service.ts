@@ -5,7 +5,7 @@ import { Http, Response, Headers } from '@angular/http';
 @Injectable()
 export class AuthService {
 
-  private _isLoggedIn : boolean = false;
+  private _isLoggedIn : Boolean = false;
 
   constructor(private http: Http) { }
 
@@ -13,7 +13,16 @@ export class AuthService {
     return this._isLoggedIn;
   }
 
-  login(user : string, pass : string) : Observable<boolean> {
+  logout() : Observable<Boolean> {
+    return Observable.create((observer : Observer<Boolean>) => { 
+      this._isLoggedIn = false;
+      observer.next(true);
+      observer.complete();
+    });
+
+  }
+
+  login(user : string, pass : string) : Observable<Boolean> {
 
     let data = {
       user, pass
@@ -22,13 +31,23 @@ export class AuthService {
     const headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
-    return Observable.create((observer : Observer<boolean>) => {
-      this.http.post('/backend/api.php/login', ('data=' + JSON.stringify(data)), { headers }).subscription(
-        result => {
-          console.log("log", result);
-          //observer.next(result);
+    return Observable.create((observer : Observer<Boolean>) => {
+      this.http.post('/backend/api.php/login', ('data=' + JSON.stringify(data)), { headers })
+      .map(response => {
+        let rv = response.json();
+        return <Boolean>rv;
+      }).subscribe(
+        response => {
+          this._isLoggedIn = response;
+          observer.next(response);
+          observer.complete();
+        },
+        error => {
+          this._isLoggedIn = false;
+          observer.error(error);
+          observer.complete();
         }
-      );
+      )
     });
     
   }
