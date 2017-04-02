@@ -2,7 +2,7 @@ import 'rxjs/add/operator/finally';
 
 import { Component, OnInit } from '@angular/core';
 
-import { QuoteService } from './quote.service';
+import { SpinnerService } from '../services';
 
 import { environment } from '../../environments/environment';
 
@@ -16,11 +16,19 @@ export class HomeComponent implements OnInit {
   quote: string;
   isLoading: boolean;
 
-  constructor(private quoteService: QuoteService) {}
+  constructor(private spinner: SpinnerService) {}
 
   ngOnInit() {
     this.isLoading = true;
     
+  }
+  loadSpinner() {
+    let self = this;
+    setTimeout(function() {
+      self.spinner.hide();
+    }, 10000);  
+    this.spinner.show();
+
   }
 
 }

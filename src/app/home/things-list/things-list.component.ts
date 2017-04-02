@@ -26,12 +26,21 @@ export class ThingsListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadData();
+    let self = this;
+    setTimeout(function() {
+      self.loadData();
+    },300000); //cada 5 minutos
+  }
+
+
+  loadData() {
     this.gifts.getAllGifts().subscribe(
       (result : any[]) => {
         this.list = result.sort(this.sort);;
       },
       error => console.log(error)
-    )
+    );
   }
 
   isLogedIn() : Boolean {
