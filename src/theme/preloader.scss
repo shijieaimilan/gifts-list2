@@ -44,7 +44,7 @@
     margin: -75px 0 0 -75px;
     border-radius: 50%;
     border: 3px solid transparent;
-    border-top-color: $brand-danger;
+    border-top-color: $secondary;
     transform: translate3d(0, 0, 0);
     animation: spin 2s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
     &:before {
@@ -56,7 +56,7 @@
       bottom: 5px;
       border-radius: 50%;
       border: 3px solid transparent;
-      border-top-color: $brand-primary;
+      border-top-color: $secondary;
       -webkit-animation: spin 3s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
       animation: spin 3s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
     }
@@ -69,7 +69,7 @@
       bottom: 15px;
       border-radius: 50%;
       border: 3px solid transparent;
-      border-top-color: $brand-warning;
+      border-top-color: $secondary;
       animation: spin 1.5s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
     }
   }
