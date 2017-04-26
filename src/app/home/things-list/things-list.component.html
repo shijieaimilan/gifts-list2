@@ -20,7 +20,7 @@
     </tr>
     <tr *ngFor="let item of list" [ngClass]=" { 'table-danger': item.reserver }">
       <td class="title-field">{{item.title}}</td>
-      <td>{{item.amount}}$</td>
+      <td>{{item.amount && !item.reserver ? '$' + item.amount : ''}}</td>
       <!--<td><a class="email-link" [href]="item.url">{{item.url}}</a></td>-->
       <td>{{item.reserver ? 'Si' : 'No'}}</td>
       <td *ngIf="isLogedIn()">{{item.reserver}}</td>
