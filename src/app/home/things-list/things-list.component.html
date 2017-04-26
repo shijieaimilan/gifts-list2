@@ -1,8 +1,15 @@
+<div class="help">
+  <a>¿CÓMO USAR ESTA LISTA?</a>
+  <p><a>VER:</a> Al apretar este botón podrás ver una descripción</p>
+  <p><a>RESERVAR:</a> Al apretar este botón podrás reservar el regalo, para que otro no lo reserve. Podés cancelar la reserva con un código que se enviará a tu mail. Deberás ingresar tu mail y tu nombre</p>
+  <p><a>REGALAR:</a> Al apretar este botón podrás regalarnos el dinero mediante Mercapago. Solo tenés que ingresar tu nombre y tu mail, y se te enviará un mail para que hagas el pago desde la página de Mercapago de un modo seguro</p>
+</div>
 <button class="btn btn-xs btn-success btn-block" (click)="openCrud(null)" *ngIf="isLogedIn()"><i class="fa fa-plus-square" aria-hidden="true"></i> Agregar</button>
 <div class="table-responsive">
   <table class="table">
     <tr>
       <th>Regalo</th>
+      <th>Valor</th>
       <!--<th>Link</th>-->
       <th>Reservado</th>
       <th *ngIf="isLogedIn()">Reservador</th>
@@ -13,15 +20,17 @@
     </tr>
     <tr *ngFor="let item of list" [ngClass]=" { 'table-danger': item.reserver }">
       <td class="title-field">{{item.title}}</td>
+      <td>{{item.amount}}$</td>
       <!--<td><a class="email-link" [href]="item.url">{{item.url}}</a></td>-->
       <td>{{item.reserver ? 'Si' : 'No'}}</td>
       <td *ngIf="isLogedIn()">{{item.reserver}}</td>
       <td *ngIf="isLogedIn()">{{item.reserverEmail}}</td>
       <td *ngIf="isLogedIn()">{{item.cancelationCode}}</td>
       <td>
-        <button class="btn btn-sm btn-primary" (click)="openView(item, true)">Ver</button>
-        <button class="btn btn-sm btn-primary" *ngIf="!item.reserver" (click)="openView(item, false)">Reservar</button>
-        <button class="btn btn-sm btn-danger" *ngIf="item.reserver" (click)="removeReserved(item)">Cancelar</button>        
+        <button class="btn btn-sm btn-primary" (click)="openView(item, true, false)">Ver</button>
+        <button class="btn btn-sm btn-primary" *ngIf="!item.reserver" (click)="openView(item, false, false)">Reservar</button>
+        <button class="btn btn-sm btn-danger" *ngIf="item.reserver" (click)="removeReserved(item)">Cancelar</button>
+        <button class="btn btn-sm btn-info" *ngIf="!item.reserver && item.amount" (click)="openView(item, false, true)">Regalar</button>        
       </td>
       <td *ngIf="isLogedIn()">
         <button class="btn btn-sm btn-success" (click)="openCrud(item)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>

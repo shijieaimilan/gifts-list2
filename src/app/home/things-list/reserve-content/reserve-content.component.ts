@@ -14,6 +14,8 @@ export class ReserveContentComponent implements OnInit {
 
   public isViewing : boolean = false;
 
+  public isSendMoney : boolean = false;
+
   constructor(public activeModal: NgbActiveModal) { }
 
   ngOnInit() {

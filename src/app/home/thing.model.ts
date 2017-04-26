@@ -6,4 +6,5 @@ export class Thing {
     reserver: string;
     reserverEmail: string;
     cancelationCode: string;
+    amount: number;
 }

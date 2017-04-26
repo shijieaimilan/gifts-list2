@@ -22,8 +22,11 @@
       <input type="email" class="form-control" id="inputEmail" [(ngModel)]="data.reserverEmail" name="email" placeholder="Ingrese email (No será publicado)">
     </div>
   </form>
+  <div class="help">
+      {{isSendMoney? 'Se te enviará un mail para que hagas el pago desde la página de Mercapago de un modo seguro' : 'Al hacer la reserva el regalo aparecerá como reservado. Podés cancelar la reserva con el código que se te dará'}}
+  </div>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-primary" (click)="activeModal.close(data)" *ngIf="!isViewing">Reservar</button>
+  <button type="button" class="btn btn-primary" (click)="activeModal.close(data)" *ngIf="!isViewing">{{isSendMoney? 'Regalar' : 'Reservar'}}</button>
   <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">Cerrar</button>
 </div>

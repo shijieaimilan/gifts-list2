@@ -1,6 +1,7 @@
 import { Observable, Observer } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
+import * as _ from 'lodash';
 
 import { environment } from '../../environments/environment';
 import  { Thing } from './thing.model';
@@ -38,6 +39,19 @@ export class GiftsService {
         return <State>(body || {});
       });
   }
+
+  public requestSendMoney(obj : Thing) : Observable<State> { 
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+
+
+    return this.http.post(environment.apiUrl + 'api.php/request-send-money', ('data=' + JSON.stringify(obj)), { headers })
+      .map((res : Response) => {
+        let body = res.json();
+        return <State>(body || {});
+      });
+  }
+
 
   public add(obj : Thing) : Observable<State> {
     

@@ -1,3 +1,15 @@
+.help {
+    font-size: 0.80rem;
+    a {
+        font-weight: bold;
+    }
+
+    p {
+        margin-bottom: 2px;
+    }
+
+    margin-bottom: 10px;
+}
 .reserved {
     /*text-decoration:line-through;*/
     background-color: red;

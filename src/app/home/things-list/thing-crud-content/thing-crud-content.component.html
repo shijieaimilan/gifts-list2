@@ -15,6 +15,10 @@
       <textarea class="form-control" id="textareaDesc" [(ngModel)]="data.description" name="description" rows="3"></textarea>
     </div>
     <div class="form-group">
+      <label for="inputAmount">Monto</label>
+      <input type="number" class="form-control" id="inputAmount" [(ngModel)]="data.amount" name="amount" placeholder="Ingrese monto">
+    </div>
+    <div class="form-group">
       <label for="inputLink">Link</label>
       <input type="url" class="form-control" id="inputLink" [(ngModel)]="data.url" name="link" placeholder="Ingrese url">
     </div>

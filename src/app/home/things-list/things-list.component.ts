@@ -78,21 +78,33 @@ export class ThingsListComponent implements OnInit {
     return a1-b1;
   }
 
-  openView(item: any, viewing : boolean) {
+  openView(item: any, viewing : boolean, sendMoney : boolean) {
     const modalRef = this.modalService.open(ReserveContentComponent);
     modalRef.result.then(
       (result) => {
-        this.gifts.reserve(result).subscribe(result => {
-          this.gifts.getAllGifts().subscribe(data => {          
-            this.list = data.sort(this.sort);
-            alert(result.message);
+        if(!sendMoney) {
+          this.gifts.reserve(result).subscribe(result => {
+            this.gifts.getAllGifts().subscribe(data => {          
+              this.list = data.sort(this.sort);
+              alert(result.message);
+            });
           });
-        });
+        }
+        else {
+          
+          this.gifts.requestSendMoney(result).subscribe(result => {
+            this.gifts.getAllGifts().subscribe(data => {          
+              this.list = data.sort(this.sort);
+              alert(result.message);
+            });
+          });
+        }
       },
       (reason) => {
         
       }
     );
+    modalRef.componentInstance.isSendMoney = sendMoney;
     modalRef.componentInstance.isViewing = viewing;
     if(item)
       modalRef.componentInstance.data = JSON.parse(JSON.stringify(item)); //clonar
