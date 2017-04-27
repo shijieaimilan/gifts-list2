@@ -11,7 +11,7 @@
       <th>Regalo</th>
       <th>Valor</th>
       <!--<th>Link</th>-->
-      <th>Reservado</th>
+      <!--<th>Reservado</th>-->
       <th *ngIf="isLogedIn()">Reservador</th>
       <th *ngIf="isLogedIn()">Email</th>
       <th *ngIf="isLogedIn()">Código cancelación</th>
@@ -22,7 +22,7 @@
       <td class="title-field">{{item.title}}</td>
       <td>{{item.amount && !item.reserver ? '$' + item.amount : ''}}</td>
       <!--<td><a class="email-link" [href]="item.url">{{item.url}}</a></td>-->
-      <td>{{item.reserver ? 'Si' : 'No'}}</td>
+      <!--<td>{{item.reserver ? 'Si' : 'No'}}</td>-->
       <td *ngIf="isLogedIn()">{{item.reserver}}</td>
       <td *ngIf="isLogedIn()">{{item.reserverEmail}}</td>
       <td *ngIf="isLogedIn()">{{item.cancelationCode}}</td>
